@@ -79,12 +79,15 @@ void MenuPage::HandleMouseOver(int x, int y)
 		   && (*it).rect->Left < x 
 		   && (*it).rect->Right > x)
 		{
+			(*it)._state = MenuObject::Focused;
+/*	TBR
 			(*it).text.SetColor(sf::Color::Green);
 			window->Draw((*it).text);
 			window->Display();
-
+*/
 			//Draw();
 		}
+		else (*it)._state = MenuObject::Normal;
 		
 	}
 }
