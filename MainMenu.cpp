@@ -7,36 +7,51 @@ MainMenu::MainMenu(sf::RenderWindow& window)
 	
 	int buttonWidth = 200;
 	int buttonHeight = 40;
+	sf::String text;
+	sf::Sprite sprite;
+	
 	
 	//Setup buttons
 	MenuObject exitButton;
 	MenuObject playButton;
 	MenuObject optionButton;
 	
-	//setup clickable regions
+
 	//NEW YEAR 2012
+// EXIT BUTTON
 	exitButton.SetPosition(100,40);
 	exitButton.CreateRect(buttonWidth ,buttonHeight);
-	exitButton.text.SetText("Exit");
-	exitButton.text.SetPosition(exitButton.Pos);
-	exitButton.text.SetColor(sf::Color::Red);
-	exitButton.action = Exit;
-	
-	//setup clickable regions
+	exitButton.action = Exit;	
+	text.SetText("Exit");
+	text.SetPosition(exitButton.Pos);
+	text.SetColor(sf::Color::Red);
+	exitButton.Text.push_back(text);
+	text.SetColor(sf::Color::Green);
+	exitButton.Text.push_back(text);
+
+// PLAY BUTTON
 	playButton.SetPosition(100,100);
 	playButton.CreateRect(buttonWidth,buttonHeight);
-	playButton.text.SetText("Play");
-	playButton.text.SetPosition(playButton.Pos);
-	playButton.text.SetColor(sf::Color::Red);
-	playButton.action = Play;
+	playButton.action = Play;	
+	text.SetText("Play");
+	text.SetPosition(playButton.Pos);
+	text.SetColor(sf::Color::Red);
+	playButton.Text.push_back(text);
+	text.SetColor(sf::Color::Black);
+	playButton.Text.push_back(text);
+
 	
-	//setup clickable regions
+// OPTIONS BUTTON
 	optionButton.SetPosition(100,160);
 	optionButton.CreateRect(buttonWidth,buttonHeight);
-	optionButton.text.SetText("Options");
-	optionButton.text.SetPosition(optionButton.Pos);
-	optionButton.text.SetColor(sf::Color::Red);
 	optionButton.action = Options;
+	text.SetText("Options");
+	text.SetPosition(optionButton.Pos);
+	text.SetColor(sf::Color::Red);
+	optionButton.Text.push_back(text);
+	text.SetColor(sf::Color::Yellow);
+	optionButton.Text.push_back(text);
+
 	
 	// load images
 	//replace this with a function?
@@ -56,9 +71,9 @@ MainMenu::MainMenu(sf::RenderWindow& window)
 	_optionSprite.Resize(optionButton.rect->GetWidth(),optionButton.rect->GetHeight());
 	
 	//setup sprites
-	exitButton.sprite = _exitSprite;
-	playButton.sprite = _playSprite;
-	optionButton.sprite = _optionSprite;
+	exitButton.Sprites.push_back(_exitSprite);
+	playButton.Sprites.push_back(_playSprite);
+	optionButton.Sprites.push_back(_optionSprite);
 	
 	// Add to list
 	_objects.push_back(exitButton);
