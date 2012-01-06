@@ -1,6 +1,8 @@
 #ifndef MENUOBJECT_H
 #define MENUOBJECT_H
 
+
+#include <vector>
 #include <list>
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -10,15 +12,24 @@ class MenuObject
 public:
 	int action;		
 	
-	sf::Vector2f Pos; // Position
-	sf::Rect<int> *rect; // x1,y1,x2,y2 
-	sf::Sprite sprite;
-	sf::String text;
+	sf::Vector2f Pos; // Position of MenuObject
+	sf::Rect<int> *rect; // x1,y1,x2,y2 Clickable area
+	std::vector<sf::Sprite> Sprites;
+	std::vector<sf::String> Text;
+	//sf::Sprite sprite; // Images 
+	//sf::String text; // Texts
+	enum State{Normal, Focused, Clicked} _state; // States 
 	
-	enum State{Normal, Focused} _state;
-	void SetPosition(float x,float y){Pos.x=x;Pos.y=y;}
-	void CreateRect(float x,float y){rect = new sf::Rect<int>(Pos.x,Pos.y,Pos.x+x,Pos.y+y);}
-//	virtual void OnFocused();
+	MenuObject(){_state=Normal;};
+	
+	void SetPosition(float x,float y);
+	void CreateRect(float x,float y);
+	void CreateRect(float x,float y, float x2, float y2);	
+	
+	void OnFocus();
+	int OnClick();
+
+	void Draw(sf::RenderWindow* window);
 };
 
 #endif // MENUOBJECT_H
