@@ -3,11 +3,10 @@
 void MenuPage::Draw()
 {
 	window->Clear(sf::Color(40,40,40));
-	list<MenuObject>::iterator it;
-	for( it=_objects.begin(); it!=_objects.end(); it++)
+
+	for( list<MenuObject>::iterator it=_objects.begin(); it!=_objects.end(); it++)
 	{
-		window->Draw((*it).sprite);	
-		window->Draw((*it).text);
+		(*it).Draw(window);
 	}
 	window->Display();
 }
@@ -26,13 +25,10 @@ int MenuPage::GetMenuReponse()
 	
 	while(true)
 	{
+		//cerr<<"Looping in Menu"<<endl;
+		Draw();
 		while(window->GetEvent(menuEvent))
 		{
-			// update()?
-			//
-			// Mouseover? like
-			// if( mouse moved )
-			//		return 
 			
 			if(menuEvent.Type == sf::Event::MouseMoved)
 				HandleMouseOver(menuEvent.MouseMove.X,menuEvent.MouseMove.Y);
@@ -48,44 +44,31 @@ int MenuPage::GetMenuReponse()
 
 int MenuPage::HandleClick(int x, int y)
 {
-	list<MenuObject>::iterator it;
 	sf::Rect<int>* menuItemRect;
 	
-	for( it=_objects.begin(); it!=_objects.end(); it++)
+	for( list<MenuObject>::iterator it=_objects.begin(); it!=_objects.end(); it++)
 	{
-		menuItemRect = (*it).rect;
-		if( menuItemRect->Bottom > y 
-		   && menuItemRect->Top < y 
-		   && menuItemRect->Left < x 
-		   && menuItemRect->Right > x)
+		if( (*it).rect->Bottom > y && (*it).rect->Top < y 
+		   && (*it).rect->Left < x && (*it).rect->Right > x)
 		{
 			cerr<<"returning action" <<endl;
-			return (*it).action;
+			return (*it).OnClick();
 		}
 		
 	}
-	delete menuItemRect;
+
 	return 0;
 }
 
 void MenuPage::HandleMouseOver(int x, int y)
-{		
-	list<MenuObject>::iterator it;
-	
-	for( it=_objects.begin(); it!=_objects.end(); it++)
+{			
+	for( list<MenuObject>::iterator it=_objects.begin(); it!=_objects.end(); it++)
 	{
-		if( (*it).rect->Bottom > y 
-		   && (*it).rect->Top < y 
-		   && (*it).rect->Left < x 
-		   && (*it).rect->Right > x)
+		if( (*it).rect->Bottom > y && (*it).rect->Top < y 
+		   && (*it).rect->Left < x && (*it).rect->Right > x)
 		{
 			(*it)._state = MenuObject::Focused;
-/*	TBR
-			(*it).text.SetColor(sf::Color::Green);
-			window->Draw((*it).text);
-			window->Display();
-*/
-			//Draw();
+
 		}
 		else (*it)._state = MenuObject::Normal;
 		

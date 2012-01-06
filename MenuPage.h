@@ -9,7 +9,7 @@
 
 using namespace std;
 
-class MenuPage: public MenuObject
+class MenuPage
 {	
 public:	
 /*	
@@ -28,12 +28,13 @@ public:
 		virtual void OnFocused();
 	};
 */	
+	
 	void Draw();
 	virtual int Show();
 	virtual int GetMenuReponse();
 	virtual int HandleClick(int x, int y);
 	virtual void HandleMouseOver(int x, int y);
-	
+
 	list<MenuObject> _objects;
 	sf::RenderWindow *window;	
 	
