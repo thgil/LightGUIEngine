@@ -46,9 +46,6 @@ bool LightGameTemplate::IsExiting()
 
 void LightGameTemplate::GameLoop()
 {
-	sf::Event currentEvent;
-	_mainWindow.GetEvent(currentEvent);
-
 	static int count=0;
 	
 	switch (_gameState) {
@@ -70,8 +67,9 @@ void LightGameTemplate::GameLoop()
 			
 		case LightGameTemplate::Playing:
 		{
-			cerr<<"Playing: count:"<<count++<<" kc:"<<currentEvent.Key.Code<<endl;
-			
+			sf::Event currentEvent;
+			_mainWindow.GetEvent(currentEvent);
+
 			_mainWindow.Clear(sf::Color(40,40,40));
 			
 			_Lines.update();
@@ -86,9 +84,8 @@ void LightGameTemplate::GameLoop()
 			if(currentEvent.Type == sf::Event::KeyPressed)
 			{
 				cerr << "Key Pressed"<<endl;
-				if(currentEvent.Key.Code == sf::Key::Escape) 
+				if((currentEvent.Type == sf::Event::KeyPressed) && (currentEvent.Key.Code == sf::Key::Escape)) 
 				{
-					cerr<<currentEvent.Key.Code<<" == "<<sf::Key::Escape<<endl;
 					_gameState = LightGameTemplate::ShowMain;
 				}
 			}
