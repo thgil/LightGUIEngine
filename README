@@ -1,0 +1,73 @@
+This program is state driven. At any given time the program is in exactly one state. States are contained in an enum.
+
+enum GameState { Uninit, ShowSplash, Paused,
+	       	 ShowMain,ShowOptions,
+	      	 Playing, Exiting};
+
+The use of states allows us to keep each stage of the program seperate and allows us to easily switch to any state from within the GameLoop.
+
+switch (_gameState){
+ case LightGameTemplate::ShowMain:
+   ShowMainMenu();
+   cerr<<"Leaving Main"<<endl;
+   break;
+ case LightGameTemplate::ShowOptions:
+   ShowOptionsMenu();
+   cerr<<"Leaving Options"<<endl;
+   break; 
+ case LightGameTemplate::ShowSplash:
+   ShowSplashScreen();
+   cerr<<"Leaving Splash"<<endl;
+   break;
+ ...
+}
+
+ShowSplashScreen() is a member function which simply creates our splashscreen. It uses our SplashScreen class and calls the .Show() member which handles everything else. Once it is finised we update the state to ::ShowMain.
+
+void LightGameTemplate::ShowSplashScreen()
+  {
+    SplashScreen splashScreen;
+    splashScreen.Show(_mainWindow);
+    _gameState = LightGameTemplate::ShowMain;
+  }
+
+At the time of writing this the main chunk of code exists to facilitates the creation of the menu. The menu uses three classes to show/create a page. MenuObjects handles the Buttons on a Page. MenuPage handles the actions/rendering of the Buttons and user inputted events. Every menu inherits from MenuPage. This inheritence lets us keep the code clear. In our case we have MainMenu inheriting from MenuPage. We only have to have MainMenu handle its hardcoded Buttons. It does not have to worry about anything else unless we override the MenuPage virtual functions.
+
+This is a sample button from MainMenu.
+
+MenuObject exitButton;
+// EXIT BUTTON
+exitButton.SetPosition(100,40);
+exitButton.CreateRect(buttonWidth ,buttonHeight);
+exitButton.action = Exit;
+text.SetText("Exit");
+text.SetPosition(exitButton.Pos);
+text.SetColor(sf::Color::Red);
+exitButton.Text.push_back(text);
+text.SetColor(sf::Color::Green);
+exitButton.Text.push_back(text);
+sf::Sprite _exitSprite(image);
+_exitSprite.SetPosition(exitButton.rect->Left,exitButton.rect->Top);
+exitButton.Sprites.push_back(_exitSprite);
+_objects.push_back(exitButton);
+
+A button must have a defined starting corner
+  exitButton.SetPosition(100,40);
+and a clickable area
+  exitButton.CreateRect(buttonWidth ,buttonHeight);
+and an Action
+  exitButton.action = Exit;
+and text
+  text.SetText("Exit");
+  text.SetPosition(exitButton.Pos);
+  text.SetColor(sf::Color::Red);
+  exitButton.Text.push_back(text);
+  text.SetColor(sf::Color::Green); 
+  exitButton.Text.push_back(text);
+and a Sprite
+  sf::Sprite _exitSprite(image);
+  _exitSprite.SetPosition(exitButton.rect->Left,exitButton.rect->Top);
+  exitButton.Sprites.push_back(_exitSprite);
+then we push it into the managing vector _objects
+  _objects.push_back(exitButton);
+ 
