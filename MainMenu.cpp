@@ -23,7 +23,7 @@ MainMenu::MainMenu(sf::RenderWindow& window)
 	exitButton.CreateRect(buttonWidth ,buttonHeight);
 	exitButton.action = Exit;	
 	text.SetText("Exit");
-	text.SetPosition(exitButton.Pos);
+	text.SetPosition(exitButton.pos);
 	text.SetColor(sf::Color::Red);
 	exitButton.Text.push_back(text);
 	text.SetColor(sf::Color::Green);
@@ -34,10 +34,10 @@ MainMenu::MainMenu(sf::RenderWindow& window)
 	playButton.CreateRect(buttonWidth,buttonHeight);
 	playButton.action = Play;	
 	text.SetText("Play");
-	text.SetPosition(playButton.Pos);
+	text.SetPosition(playButton.pos);
 	text.SetColor(sf::Color::Red);
 	playButton.Text.push_back(text);
-	text.SetColor(sf::Color::Black);
+	text.SetColor(sf::Color::Blue);
 	playButton.Text.push_back(text);
 
 	
@@ -46,7 +46,7 @@ MainMenu::MainMenu(sf::RenderWindow& window)
 	optionButton.CreateRect(buttonWidth,buttonHeight);
 	optionButton.action = Options;
 	text.SetText("Options");
-	text.SetPosition(optionButton.Pos);
+	text.SetPosition(optionButton.pos);
 	text.SetColor(sf::Color::Red);
 	optionButton.Text.push_back(text);
 	text.SetColor(sf::Color::Yellow);
@@ -79,18 +79,4 @@ MainMenu::MainMenu(sf::RenderWindow& window)
 	_objects.push_back(exitButton);
 	_objects.push_back(playButton);
 	_objects.push_back(optionButton);
-}
-
-MainMenu::~MainMenu()
-{
-	/*
-	if(window != NULL)
-		delete window;
-	
-	for(list<MenuObject>::iterator it=_objects.begin(); it!=_objects.end(); it++)
-	{
-		if((*it).rect != NULL)
-			delete (*it).rect;
-	}
-*/
 }
