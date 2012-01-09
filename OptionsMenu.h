@@ -8,7 +8,7 @@ using namespace std;
 class OptionsMenu: public MenuPage
 {
 public:
-	enum OptionsMenuResult{Nothing,Back};
+	enum OptionsMenuResult{Nothing,Back,FullScreen,Resolution,Vsync,AA};
 	
 	OptionsMenu(sf::RenderWindow& window);
 };
