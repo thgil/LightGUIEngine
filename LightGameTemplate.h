@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "MainMenu.h"
+#include "OptionsMenu.h"
 #include "SplashScreen.h"
 
 #include "TLines.h"

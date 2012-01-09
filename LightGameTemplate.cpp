@@ -13,7 +13,7 @@ void LightGameTemplate::Start()
 	// Move this to somewhere else
 	// Or something...
 	std::cerr<<"Creating Renderwindow"<<std::endl;
-	_mainWindow.Create(sf::VideoMode(1024,768,32),"Holy shit it's LightGameTemplate!");
+	_mainWindow.Create(sf::VideoMode::GetMode(0),"Holy shit it's LightGameTemplate!");
 	
 	
 	std::cerr<<"Showing Splash"<<std::endl;
@@ -125,33 +125,34 @@ void LightGameTemplate::ShowMainMenu()
 			_gameState = LightGameTemplate::ShowOptions;
 			break;
 	}
-	return;
 }
 
 void LightGameTemplate::ShowOptionsMenu()
 {
 	cerr<<"Entering OptionsMenu"<<endl;
 	
-	MainMenu mainMenu(_mainWindow);
+	OptionsMenu optionsMenu(_mainWindow);
 	
-	MainMenu::MainMenuResult result = (MainMenu::MainMenuResult)mainMenu.Show();
+	OptionsMenu::OptionsMenuResult result = (OptionsMenu::OptionsMenuResult)optionsMenu.Show();
 	
 	cerr<<"ResultFromOptions:"<<result<<endl;
 
 	switch (result) {
-		case MainMenu::Exit:
-			cerr<<"Exiting from OptionsMenu"<<endl;
-			_gameState = LightGameTemplate::Exiting;
+		case OptionsMenu::Back:
+			cerr<<"MainMenu from OptionsMenu"<<endl;
+			_gameState = LightGameTemplate::ShowMain;
 			break;
-		case MainMenu::Play:
-			cerr<<"Playing from OptionsMenu"<<endl;
-			_gameState = LightGameTemplate::Playing;
+		case OptionsMenu::FullScreen:
+			cerr<<"OptionsMenu recreating window to fullscreen"<<endl;
 			break;
-		case MainMenu::Options:
-			cerr<<"Playing from OptionsMenu"<<endl;
-			_gameState = LightGameTemplate::ShowOptions;
+		case OptionsMenu::Resolution:
+			cerr<<"OptionsMenu recreating window to windowed"<<endl;
 			break;
-			
+		case OptionsMenu::Vsync:
+			cerr<<"OptionsMenu recreating window to windowed"<<endl;
+			break;
+		case OptionsMenu::AA:
+			cerr<<"OptionsMenu recreating window to windowed"<<endl;
+			break;
 	}
-	
 }
