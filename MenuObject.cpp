@@ -3,13 +3,13 @@
 
 void MenuObject::SetPosition(float x,float y)
 {
-	Pos.x=x;
-	Pos.y=y;
+	pos.x=x;
+	pos.y=y;
 }
 
 void MenuObject::CreateRect(float x,float y)
 {
-	rect = new sf::Rect<int>(Pos.x, Pos.y, Pos.x+x, Pos.y+y );
+	rect = new sf::Rect<int>(pos.x, pos.y, pos.x+x, pos.y+y );
 }
 
 void MenuObject::CreateRect(float x,float y, float x2,float y2)
@@ -50,3 +50,10 @@ void MenuObject::Draw(sf::RenderWindow* window)
 			break;
 	}
 }
+
+template <class T> void Copy(T first,const T second)
+{
+	first = second;
+}
+
+
